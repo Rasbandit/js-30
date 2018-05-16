@@ -6,6 +6,7 @@
 </head>
 <body>
   <p><em>Psst: have a look at the JavaScript Console</em> 💁</p>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.js"></script>
   <script>
     // Get your shorts on - this is an array workout!
     // ## Array Cardio Day 1
@@ -30,18 +31,37 @@
     const people = ['Beck, Glenn', 'Becker, Carl', 'Beckett, Samuel', 'Beddoes, Mick', 'Beecher, Henry', 'Beethoven, Ludwig', 'Begin, Menachem', 'Belloc, Hilaire', 'Bellow, Saul', 'Benchley, Robert', 'Benenson, Peter', 'Ben-Gurion, David', 'Benjamin, Walter', 'Benn, Tony', 'Bennington, Chester', 'Benson, Leana', 'Bent, Silas', 'Bentsen, Lloyd', 'Berger, Ric', 'Bergman, Ingmar', 'Berio, Luciano', 'Berle, Milton', 'Berlin, Irving', 'Berne, Eric', 'Bernhard, Sandra', 'Berra, Yogi', 'Berry, Halle', 'Berry, Wendell', 'Bethea, Erin', 'Bevan, Aneurin', 'Bevel, Ken', 'Biden, Joseph', 'Bierce, Ambrose', 'Biko, Steve', 'Billings, Josh', 'Biondo, Frank', 'Birrell, Augustine', 'Black, Elk', 'Blair, Robert', 'Blair, Tony', 'Blake, William'];
 
     // Array.prototype.filter()
+
+    let born = _.filter(inventors, person => person.year >= 1500 && person.year <= 1600)
+    console.log(born);
+
     // 1. Filter the list of inventors for those who were born in the 1500's
 
+
+    let names = _.map(inventors, inventor => `${inventor.first} ${inventor.last}`)
+    console.table(names);
     // Array.prototype.map()
     // 2. Give us an array of the inventors' first and last names
 
+
+    let sortedAge = _.sortBy(inventors, ['year'])
+    let sortedAgeTwo = _.sortBy(inventors, inventor => inventor.year)
+    console.table(sortedAgeTwo)
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
+
+    let totalAge = _.reduce(inventors, (result, item) => result + (item.passed - item.year), 0)
+    console.log(totalAge);
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live?
 
+
+    let sortedLived = _.sortBy(inventors, a => a.passed - a.year).reverse()
+    console.table(sortedLived);
     // 5. Sort the inventors by years lived
+
+
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
@@ -50,9 +70,23 @@
     // 7. sort Exercise
     // Sort the people alphabetically by last name
 
+    let sortedLastName = _.sortBy(people, (person) => {
+      let [last, first] = person.split(', ')
+      return last
+    })
+
+    console.table(sortedLastName);
+
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+
+    let duce = _.reduce(data, (total, item) => {
+      if(!total[item]) total[item] = 0
+      ++total[item]
+      return total
+    }, {})
+    console.log(duce);
 
   </script>
 </body>
